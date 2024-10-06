@@ -1,5 +1,5 @@
 # CryptoSmite
-Unenrollment exploit that uses stateful files to unenroll for kernver <= 3. Use [badrecovery](https://github.com/BinBashBanana/badrecovery) if you have kernver 3.
+Unenrollment exploit that uses stateful files to unenroll for kernver <= 2. Use [badrecovery](https://github.com/BinBashBanana/badrecovery) if you have kernver 3.
 ## How does it work?
 We use stateful "backups" that basically allows us to change the encrypted contents of the stateful partition, to arbritary contents. This data is useful for enrollment status, so we changed it to make the device appear unenrolled. On the OOBE, it starts the AutoEnrollmentController, which chains into the ash ownership system, and then the ownership system checks for a file. If this file exists, it removes FWMP. 
 
