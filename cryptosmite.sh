@@ -46,6 +46,8 @@ skip_devmode() {
 	exit 0 #if reboot fails for some weird reason
 }
 restore_backup() {
+	ACTION1="restore"
+	ACTION2="reset"
 	USE_BACKUP=1
 }
 confirm_choice() {

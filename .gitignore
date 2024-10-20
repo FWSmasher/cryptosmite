@@ -44,3 +44,10 @@ Module.symvers
 Mkfile.old
 dkms.conf
 node_modules
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### IntelliJ IDEA ###
