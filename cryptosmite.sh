@@ -23,11 +23,7 @@ print_welcome() {
     echo "Welcome to the CryptoSmite toolkit (2024)"
     echo "Please look at the following options: "
     echo "(1) Unenrollment"
-	echo "(2) Extract stateful (needed for re-enrollment)"
-	echo "(3) Skip Devmode"
-	echo "(4) Restore backup (this may or may not re-enroll you, DO NOT TRUST ANY BACKUP THAT YOU FIND ON THE INTERNET, ONLY USE BACKUPS CREATED BY THE REENROLLMENT TOOLKIT)"
-	echo "	They may have keyloggers or other extensions installed, and may compromise your login info."
-	echo "(5) Wipe current encstateful without removing exploit (This is part of re-enrollment)"
+	echo "(2) Re-enroll with backup (DO note: BACKUPS may contain unintended extensions that may leave your device open up to exploits.)"
 	echo "(q) Quit"
 	CONTINUE=1
 }
@@ -98,17 +94,8 @@ do
         # Unenrollment past this point it will just run the code after this
 		break
         ;;
-    2)
-        confirm_choice reenroll
-        ;;
-    3)
-        confirm_choice skip_devmode
-        ;;
-	4)
+	2)
 		confirm_choice restore_backup
-		;;
-	5)
-		confirm_choice wipe_encstateful
 		;;
     q)
         echo "Quitting now"
@@ -254,12 +241,8 @@ key_crosencstateful > "$STATEFUL_MNT"/encrypted.needs-finalization
 echo $ENCSTATEFUL_KEY > /mnt/stateful_partition/enc.key
 
 
-if [ $UNENROLL -eq 0 ]
-then
-	echo "Not restoring backup to encstateful for unenrollment, since the encstateful key has dropped, your next sesson will use the encstateful key (if you used cryptosmite before this without powerwashing)"
-	echo ""
-else
-	if [ $WIPE_ENCSTATEFUL -eq 0 ]
+
+if [ $WIPE_ENCSTATEFUL -eq 0 ]
 	then
 	
 		echo_sensitive -n "Extracting backup to encstateful"
@@ -267,7 +250,6 @@ else
 		echo ""
 	else
 		echo "Keeping encstateful empty"
-	fi
 fi
 echo "Cleaning up"
 cleanup
